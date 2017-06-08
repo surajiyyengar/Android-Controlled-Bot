@@ -3,6 +3,7 @@ int LB=3;
 int RF=4;
 int RB=7;
 int En1=6;
+int En2=5;
 int vcc=8;
 String data;
 //motor driver for lift
@@ -10,10 +11,13 @@ int Enable=10;
 int Up=11;
 int Down=12;
 int Volt5=9;
+//variables for force sensitive resistor
+int Uweight=0;
+int Lweight=0;
 
 void setup()  
 {
-  Serial.begin(9600); //default baud rate of HC 05
+  Serial.begin(9600); //default baud rate of HC 05 connected at 0 and 1
     
   pinMode(LF,OUTPUT);   // LF- in1
   pinMode(LB,OUTPUT);   // LB- in2
@@ -25,12 +29,14 @@ void setup()
   pinMode(Enable,OUTPUT); // enable for fork lift
   pinMode(Up,OUTPUT);    //take up
   pinMode(Down,OUTPUT);   //take down
-  pinMode(Volt5, OUTPUT);  //vcc
+  pinMode(Volt5, OUTPUT);  //vcc for motor driver of fork lift
+  pinMode(A1,INPUT);      //fsr
+  pinMode(A3,OUTPUT);     //LED
   
   digitalWrite(Volt5,HIGH); //for fork lift motor driver
   digitalWrite(vcc,HIGH);   //for motor driver for wheels
   digitalWrite(En1,HIGH);   //for motor driver for wheels
-  analogWrite(En2,220);     //for fork lift motor driver
+  digitalWrite(En2,HIGH);   //for motor driver for wheels
  }
  
  char command; // stores incoming character from other device
@@ -133,6 +139,19 @@ void loop()
    {
     digitalWrite(Up,HIGH);
     digitalWrite(Down,HIGH);
+   }
+   break;
+    case '?':
+   {
+   int weight=analogRead(A1);
+    if(weight>=Uweight)
+    {
+    Serial.println("Y");
+    analogWrite(A3,255);
+    }
+    if(weight<=Lweight)
+    {
+    Serial.println("N");
    }
    break;
    default :                 //free flow
