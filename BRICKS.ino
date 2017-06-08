@@ -33,6 +33,7 @@ void setup()
   pinMode(A1,INPUT);      //fsr
   pinMode(A3,OUTPUT);     //LED
   
+  analogWrite(Enable,150); //for fork lift motor driver
   digitalWrite(Volt5,HIGH); //for fork lift motor driver
   digitalWrite(vcc,HIGH);   //for motor driver for wheels
   digitalWrite(En1,HIGH);   //for motor driver for wheels
@@ -119,7 +120,8 @@ void loop()
       digitalWrite(RB,HIGH);
     }
     break;
-    //to control the fork lift
+      
+   //to control the fork lift
    case 'W':                //go up
    {
     digitalWrite(Up,HIGH);
@@ -146,14 +148,15 @@ void loop()
    int weight=analogRead(A1);
     if(weight>=Uweight)
     {
-    Serial.println("Y");
-    analogWrite(A3,255);
+    Serial.println("Y");  //heavy brick
+    analogWrite(A3,255); // set the LED on
     }
     if(weight<=Lweight)
     {
-    Serial.println("N");
+    Serial.println("N");  //hollow brick
    }
    break;
+   
    case '*':      //for round 2 to know the number of cube and cylinder bricks
    {
     data=Serial.readStringUntil('#');
