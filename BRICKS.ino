@@ -5,6 +5,11 @@ int RB=7;
 int En1=6;
 int vcc=8;
 String data;
+//motor driver for lift
+int Enable=10;
+int Up=11;
+int Down=12;
+int Volt5=9;
 
 void setup()  
 {
@@ -15,10 +20,17 @@ void setup()
   pinMode(RF,OUTPUT);   // RF- in3
   pinMode(RB,OUTPUT);   // RB- in4
   pinMode(En1,OUTPUT);   //pwm-enable 1 of motor driver
- 
+  pinMode(En2,OUTPUT);   //pwm-enable 2 of motor driver
   pinMode(vcc,OUTPUT);   //+Vcc
-  digitalWrite(vcc,HIGH);
-  digitalWrite(En1,HIGH);
+  pinMode(Enable,OUTPUT); // enable for fork lift
+  pinMode(Up,OUTPUT);    //take up
+  pinMode(Down,OUTPUT);   //take down
+  pinMode(Volt5, OUTPUT);  //vcc
+  
+  digitalWrite(Volt5,HIGH); //for fork lift motor driver
+  digitalWrite(vcc,HIGH);   //for motor driver for wheels
+  digitalWrite(En1,HIGH);   //for motor driver for wheels
+  analogWrite(En2,220);     //for fork lift motor driver
  }
  
  char command; // stores incoming character from other device
