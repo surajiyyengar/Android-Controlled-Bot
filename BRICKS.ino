@@ -113,7 +113,29 @@ void loop()
       digitalWrite(RB,HIGH);
     }
     break;
-    default :                 //free flow
+    //to control the fork lift
+   case 'W':                //go up
+   {
+    digitalWrite(Up,HIGH);
+    digitalWrite(Down,LOW);
+   }
+   break;
+      
+   case 'U':                 //go down
+   {
+    digitalWrite(Down,HIGH);
+    digitalWrite(Up,LOW);
+   }
+   break;
+   //to stop the fork lift motor 
+   case 'u':
+   case 'w':
+   {
+    digitalWrite(Up,HIGH);
+    digitalWrite(Down,HIGH);
+   }
+   break;
+   default :                 //free flow
     {
       digitalWrite(RF,LOW);
       digitalWrite(LF,LOW);
