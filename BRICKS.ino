@@ -141,7 +141,7 @@ void loop()
     digitalWrite(Down,HIGH);
    }
    break;
-    case '?':
+   case '?':
    {
    int weight=analogRead(A1);
     if(weight>=Uweight)
@@ -152,6 +152,13 @@ void loop()
     if(weight<=Lweight)
     {
     Serial.println("N");
+   }
+   break;
+   case '*':      //for round 2 to know the number of cube and cylinder bricks
+   {
+    data=Serial.readStringUntil('#');
+    Serial.println(data);
+    Serial.flush();
    }
    break;
    default :                 //free flow
